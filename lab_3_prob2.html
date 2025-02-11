@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Web Page with JavaScript and jQuery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .dynamic-text {
+            color: blue;
+            font-size: 20px;
+        }
+        #dynamicImage {
+            width: 200px;
+            transition: 0.5s;
+        }
+        .container {
+            margin: 20px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Dynamic Web Page</h1>
+
+        <!-- Text Section -->
+        <p id="para1" class="dynamic-text">This is a sample paragraph.</p>
+
+        <!-- Buttons for JavaScript DOM Manipulation -->
+        <button id="changeTextBtn">Change Text</button>
+        <button id="changeColorBtn">Change Color</button>
+        <button id="addTextNodeBtn">Add Text Node</button>
+        <button id="deleteNodeBtn">Delete Text Node</button>
+        <br><br>
+
+        <!-- Image Section -->
+        <img id="dynamicImage" src="https://via.placeholder.com/150" alt="Placeholder Image">
+        <button id="changeImageBtn">Change Image</button>
+
+        <br><br>
+
+        <!-- jQuery Operations -->
+        <h3>jQuery Operations</h3>
+
+        <button id="changeButtonTextBtn">Change Button Text (using jQuery)</button>
+        <button id="setBackgroundBtn">Set Background Image (using jQuery)</button>
+
+        <form id="sampleForm">
+            <label for="userName">Enter your name:</label>
+            <input type="text" id="userName" name="userName">
+            <button type="button" id="accessFormBtn">Access Form Data</button>
+        </form>
+        
+        <br><br>
+
+        <button id="addAttributeBtn">Add Attribute to Button</button>
+    </div>
+
+    <script>
+        // JavaScript for DOM Manipulation
+
+        // 1. Change the text of the paragraph
+        document.getElementById('changeTextBtn').onclick = function() {
+            document.getElementById('para1').innerHTML = "Text has been changed!";
+        };
+
+        // 2. Change the color of the paragraph text
+        document.getElementById('changeColorBtn').onclick = function() {
+            document.getElementById('para1').style.color = "red";
+        };
+
+        // 3. Add a new text node to the body
+        document.getElementById('addTextNodeBtn').onclick = function() {
+            const newNode = document.createTextNode("This is a newly added text node.");
+            const parentNode = document.getElementById('content');
+            parentNode.appendChild(newNode);
+        };
+
+        // 4. Delete a text node (remove the paragraph)
+        document.getElementById('deleteNodeBtn').onclick = function() {
+            const para1 = document.getElementById('para1');
+            para1.parentNode.removeChild(para1);
+        };
+
+        // 5. Change the image source
+        document.getElementById('changeImageBtn').onclick = function() {
+            document.getElementById('dynamicImage').src = "https://via.placeholder.com/300";
+        };
+
+        // jQuery Operations
+        $(document).ready(function() {
+
+            // 1. Change button text using jQuery
+            $('#changeButtonTextBtn').click(function() {
+                $(this).text("Text Changed (using jQuery)");
+            });
+
+            // 2. Set background-image using jQuery CSS property
+            $('#setBackgroundBtn').click(function() {
+                $('body').css('background-image', 'url("https://via.placeholder.com/1920x1080")');
+                $('body').css('background-size', 'cover');
+            });
+
+            // 3. Access HTML form data using jQuery
+            $('#accessFormBtn').click(function() {
+                var userName = $('#userName').val();
+                alert('Hello, ' + userName);
+            });
+
+            // 4. Add attribute to a button using jQuery
+            $('#addAttributeBtn').click(function() {
+                $(this).attr('title', 'This is a button with a title attribute');
+            });
+
+        });
+    </script>
+
+</body>
+</html>

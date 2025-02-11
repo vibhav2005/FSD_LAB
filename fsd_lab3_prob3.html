@@ -1,0 +1,68 @@
+<?php
+// Set the cookie for last visited page and timestamp
+$lastVisitedPage = $_SERVER['REQUEST_URI']; // Get the current page URL
+$visitTimestamp = time(); // Get the current timestamp
+
+// Set the cookies with a 30-day expiration time
+setcookie('lastVisitedPage', $lastVisitedPage, time() + (30 * 24 * 60 * 60), '/');
+setcookie('visitTimestamp', $visitTimestamp, time() + (30 * 24 * 60 * 60), '/');
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Activity Tracker</title>
+    <script>
+        // Function to retrieve cookies and display user activity information
+        function displayUserActivity() {
+            // Retrieve cookies
+            const lastVisitedPage = getCookie('lastVisitedPage');
+            const visitTimestamp = getCookie('visitTimestamp');
+
+            // Convert timestamp to human-readable date format
+            const visitDate = new Date(parseInt(visitTimestamp) * 1000);
+            const formattedDate = visitDate.toLocaleString();
+
+            // Display the information on the page
+            const activityDiv = document.getElementById('userActivity');
+            if (lastVisitedPage && visitTimestamp) {
+                activityDiv.innerHTML = `
+                    <p><strong>Last Visited Page:</strong> ${lastVisitedPage}</p>
+                    <p><strong>Visit Timestamp:</strong> ${formattedDate}</p>
+                `;
+            } else {
+                activityDiv.innerHTML = `<p>No activity data available.</p>`;
+            }
+        }
+
+        // Helper function to get cookie value by name
+        function getCookie(name) {
+            const nameEq = name + "=";
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                let cookie = cookies[i];
+                while (cookie.charAt(0) == ' ') cookie = cookie.substring(1, cookie.length);
+                if (cookie.indexOf(nameEq) == 0) return cookie.substring(nameEq.length, cookie.length);
+            }
+            return null;
+        }
+
+        // Call the function to display user activity when the page is loaded
+        window.onload = displayUserActivity;
+    </script>
+</head>
+<body>
+    <h1>User Activity Tracker</h1>
+
+    <!-- Section to display user activity -->
+    <div id="userActivity">
+        <!-- User activity information will be displayed here dynamically -->
+    </div>
+
+    <br>
+    <p>Feel free to navigate through the site. Your last visited page and the time of visit will be tracked.</p>
+    
+</body>
+</html>
